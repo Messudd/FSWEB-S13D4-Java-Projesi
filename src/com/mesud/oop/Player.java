@@ -10,7 +10,6 @@ public class Player {
             this.healthPercentage = 100;
         }
         else if(healthValue<0){
-            System.out.println(name + " player has been knocked out of game");
             this.healthPercentage = 0;
         }
         else this.healthPercentage = healthValue;
@@ -24,13 +23,19 @@ public class Player {
         return  healthPercentage;
     }
     public void loseHealth(int damage){
-        healthPercentage -= damage;
-        checkHealthPercentage(healthPercentage);
+        int newHealthValue = healthPercentage - damage;
+        if(newHealthValue<=0){
+            System.out.println(name + " player has been knocked out of game");
+        }
+        checkHealthPercentage(newHealthValue);
     }
     public void  restoreHealth(int healthPotion){
-        healthPercentage+= healthPotion;
-        if(healthPercentage>100){
-            healthPercentage = 100;
-        }
+        checkHealthPercentage( healthPercentage + healthPotion);
+    }
+    @Override
+    public String toString() {
+        return "Name : " + name + " Healt_Peecentage : " + healthPercentage + " Weapen : " +
+                weapen.getDamage() +" - "  + weapen.getAttackSpeed() +
+                " Weapen_Deal : " + (weapen.getDamage()*weapen.getAttackSpeed());
     }
 }
